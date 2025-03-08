@@ -75,3 +75,41 @@ Create your first JPA entity
 Easily start your REST Web Services
 
 [Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+
+### Exemplos de requisições
+
+### Cadastro de usuario
+
+curl --location 'http://localhost:8080/users/' \
+--header 'Content-Type: application/json' \
+--data '{
+    "username":"Ronaldo",
+    "usertype":"Professor"
+}'
+
+### Listar Usuarios
+
+curl --location --request GET 'http://localhost:8080/users/' \
+--header 'Content-Type: application/json'
+
+### Listar Usuario por ID
+
+curl --location --request GET 'http://localhost:8080/users/{Id}' \
+--header 'Content-Type: application/json' \
+
+### Cadastro de Curso
+curl --location 'http://localhost:8080/courses/' \
+--header 'Content-Type: application/json' \
+--data '{
+    "coursename":"Fisica",
+    "coursearea":"Exatas"
+}'
+
+### Listar Curso por área
+curl --location --request GET 'http://localhost:8080/courses/area/saude' \
+--header 'Content-Type: application/json' \
+
+### Listar Curso por nome
+curl --location --request GET 'http://localhost:8080/courses/name/Matematica' \
+--header 'Content-Type: application/json' \
+
