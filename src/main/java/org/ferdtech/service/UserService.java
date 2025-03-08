@@ -38,6 +38,8 @@ public class UserService {
 
         user.setUsername(userEntity.getUsername());
 
+        user.setUsertype(userEntity.getUsertype());
+
         userRepository.persist(user);
 
         return user;

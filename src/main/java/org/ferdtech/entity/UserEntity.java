@@ -15,6 +15,16 @@ public class UserEntity {
 
     private String username;
 
+    private String usertype;
+
+    public String getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
+    }
+
     public UserEntity() {
     }
 
