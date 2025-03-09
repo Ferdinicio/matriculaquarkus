@@ -4,6 +4,7 @@ import java.util.UUID;
 import org.ferdtech.entity.DisciplineEntity;
 import org.ferdtech.service.DisciplineService;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -36,6 +37,7 @@ public class DisciplineController {
 
     @POST
     @Transactional
+    @RolesAllowed("mananger")
     public Response createDiscipline(DisciplineEntity disciplineEntity) {
         return Response.ok(disciplineService.createDiscipline(disciplineEntity)).build();
     }
@@ -43,6 +45,7 @@ public class DisciplineController {
     @PUT
     @Path("/{id}")
     @Transactional
+    @RolesAllowed("mananger")
     public Response updateDiscipline(@PathParam("id") UUID disciplineId, DisciplineEntity disciplineEntity) {
         return Response.ok(disciplineService.updateDiscipline(disciplineId, disciplineEntity)).build();
     }
@@ -50,6 +53,7 @@ public class DisciplineController {
     @DELETE
     @Path("/{id}")
     @Transactional
+    @RolesAllowed("mananger")
     public Response deleteById(@PathParam("id") UUID disciplineId) {
         disciplineService.deleteById(disciplineId);
         return Response.noContent().build();

@@ -1,5 +1,6 @@
 package org.ferdtech.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -30,6 +31,7 @@ public class UserController {
 
     @POST
     @Transactional
+    @RolesAllowed("mananger")
     public Response createUser(UserEntity userEntity) {
         return Response.ok(userService.createUser(userEntity)).build();
     }
@@ -37,6 +39,7 @@ public class UserController {
     @PUT
     @Path("/{id}")
     @Transactional
+    @RolesAllowed("mananger")
     public Response updateUser(@PathParam("id") UUID userId, UserEntity userEntity) {
         return Response.ok(userService.updateUser(userId, userEntity)).build();
     }
@@ -51,6 +54,7 @@ public class UserController {
     @DELETE
     @Path("/{id}")
     @Transactional
+    @RolesAllowed("mananger")
     public Response deleteById(@PathParam("id") UUID userId) {
         userService.deleteById(userId);
         return Response.noContent().build();

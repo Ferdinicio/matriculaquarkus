@@ -76,14 +76,71 @@ Easily start your REST Web Services
 
 [Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
 
+### INSTALAR MySQL SERVER
+sudo apt update
+sudo apt install mysql-server
+sudo service mysql start
+sudo mysql
+
+### CREATE DATABASE
+CREATE DATABASE unifordb;
+CREATE USER 'quarkususer'@'localhost' IDENTIFIED BY 'quarkuspass';
+GRANT ALL PRIVILEGES ON unifordb.* TO 'quarkususer'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+
+### Configure o Quarkus para usar o MySQL
+No application.properties:
+
+quarkus.datasource.db-kind=mysql
+quarkus.datasource.jdbc.url=jdbc:mysql://localhost:3306/unifordb
+quarkus.datasource.username=quarkususer
+quarkus.datasource.password=quarkuspass
+
+### Hibernate
+quarkus.hibernate-orm.database.generation=update
+quarkus.hibernate-orm.log.sql=true
+
+### Adicione a dependência do MySQL no pom.xml:
+
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-jdbc-mysql</artifactId>
+</dependency>
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-hibernate-orm</artifactId>
+</dependency>
+
+### Criar imagem do Keycloack no Doker
+### Execute o comando abaixo:
+ docker run -p 8180:8080 -e KEYCLOAK_ADMIN=admin 
+-e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:latest start-dev
+
+### Acessar o keycloak admin pelo link http://localhost:8180/admin
+Acesso: Login: admin Senha: admin
+
+### Criar novo realm usando o arquivo .jason baixado no link 
+https://github.com/quarkusio/quarkus-quickstarts/blob/main/security-keycloak-authorization-quickstart/config/quarkus-realm.json
+
+### Criar nova role no keycloak chamada mananger
+### Criar novo user no keycloak e vincular na role criada mananger
+
+### Exemplo de requisição para gerar Bearer token para acesso a API de Criação de usuario/Disciplina/Semestra
+curl --location 'http://localhost:8080/token' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'username=ferd' \
+--data-urlencode 'password=1234'
+
 ### Exemplos de requisições
 
 ### Cadastro de usuario
-
-curl --location 'http://localhost:8080/users/' \
+## Para criar usuario Gerar token Bearer no http://localhost:8080/token
+curl --location 'http://localhost:8080/users' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJaXzg2UlhKV0ptMmlkVW5rMUg4WkVXQU1zNm4tZ3c5ZTFoVzk2X25OOVFrIn0' \
 --header 'Content-Type: application/json' \
 --data '{
-    "username":"Ronaldo",
+    "username":"Fabricio Sousa",
     "usertype":"Professor"
 }'
 
@@ -99,6 +156,7 @@ curl --location --request GET 'http://localhost:8080/users/{Id}' \
 
 ### Cadastro de Curso
 curl --location 'http://localhost:8080/courses/' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJaXzg2UlhKV0ptMmlkVW5rMUg4WkVXQU1zNm4tZ3c5ZTFoVzk2X25OOVFrIn0' \
 --header 'Content-Type: application/json' \
 --data '{
     "coursename":"Fisica",

@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.ferdtech.entity.SemesterEntity;
 import org.ferdtech.service.SemesterService;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -36,6 +37,7 @@ public class SemesterController {
 
     @POST
     @Transactional
+    @RolesAllowed("mananger")
     public Response createSemester(SemesterEntity semesterEntity) {
         return Response.ok(semesterService.createSemester(semesterEntity)).build();
     }
@@ -43,6 +45,7 @@ public class SemesterController {
     @PUT
     @Path("/{id}")
     @Transactional
+    @RolesAllowed("mananger")
     public Response updateSemester(@PathParam("id") UUID semesterId, SemesterEntity semesterEntity) {
         return Response.ok(semesterService.updateSemester(semesterId, semesterEntity)).build();
     }
@@ -50,6 +53,7 @@ public class SemesterController {
     @DELETE
     @Path("/{id}")
     @Transactional
+    @RolesAllowed("mananger")
     public Response deleteById(@PathParam("id") UUID semesterId) {
         semesterService.deleteSemester(semesterId);
         return Response.noContent().build();
