@@ -24,7 +24,7 @@ public class DisciplineController {
 
     @GET
     public Response findAll(@QueryParam("page") @DefaultValue("0") Integer page,
-    @QueryParam("pageSize") @DefaultValue("10") Integer pageSize) {
+    @QueryParam("pageSize") @DefaultValue("12") Integer pageSize) {
         var disciplines = disciplineService.findAll(page,pageSize);
         return Response.ok(disciplines).build();
     }
