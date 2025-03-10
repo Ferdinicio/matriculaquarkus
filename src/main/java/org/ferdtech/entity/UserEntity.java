@@ -1,6 +1,5 @@
 package org.ferdtech.entity;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
 import java.util.UUID;
@@ -14,6 +13,16 @@ public class UserEntity {
     private UUID userId;
 
     private String username;
+
+    private String usertype;
+
+    public String getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
+    }
 
     public UserEntity() {
     }
