@@ -171,3 +171,20 @@ curl --location --request GET 'http://localhost:8080/courses/area/saude' \
 curl --location --request GET 'http://localhost:8080/courses/name/Matematica' \
 --header 'Content-Type: application/json' \
 
+### Cadastrar Disciplina
+curl --location 'http://localhost:8080/disciplines' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJaXzg2UlhKV0ptMmlkVW5rMUg4WkVXQU1zNm4tZ3c5ZTFoVzk2X25OOVFrIn0' \
+--header 'Content-Type: application/json' \
+--data '{
+    "name":"Fisica 1",
+    "professor":"Genivaldo",
+    "credit":35,
+    "syllabus":"Introdução a Fisica",
+    "program":"1 - Introdução / 2 - Atividades",
+    "semester":null
+}'
+
+### Listar Disciplinas
+curl --location 'http://localhost:8080/disciplines' \
+--header 'Content-Type: application/json' \
+
